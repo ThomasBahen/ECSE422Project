@@ -46,17 +46,8 @@ public class Main {
         Arrays.stream(costMatrix).forEach(item->System.out.print(item+ " "));
         ArrayList<Edge> edges = createEdges(nodes,rMatrix,costMatrix);
         Collections.sort(edges);
-        ArrayList<Edge> spanEdges = kruskal(edges,nodes);
-        spanEdges.sort(Comparator.comparing(edge -> edge.getV1()));
-        System.out.println("\nThe maximum spanning tree of reliability:");
-        double spanRel = 1.0;
-        for (Edge edge : spanEdges) {
-            edges.remove(edge);
-            spanRel= edge.getRel()*spanRel;
-            System.out.println(edge);
-        }
-        totalRel = spanRel;
-        System.out.println("The MaxST reliability is: "+spanRel);
+
+        System.out.println("The MaxST reliability is: ");
 
     }
 

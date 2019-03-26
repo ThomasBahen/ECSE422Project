@@ -1,15 +1,16 @@
 package ca.mcgill;
 
 public class Edge implements Comparable<Edge> {
-     int v1,v2,cost;
+     int v1,v2,cost, id;
      double rel;
 
-    Edge(int v1, int v2, int cost, double rel)
+    Edge(int v1, int v2, int cost, double rel, int id)
     {
         this.v1=v1;
         this.v2=v2;
         this.cost=cost;
         this.rel =rel;
+        this.id=id
     }
 
     @Override
@@ -56,5 +57,13 @@ public class Edge implements Comparable<Edge> {
 
     public void setRel(double rel) {
         this.rel = rel;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
