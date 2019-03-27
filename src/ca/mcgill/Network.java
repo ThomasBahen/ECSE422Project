@@ -10,15 +10,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
-public class Main {
+public class Network {
 
 
 
 
     public static void main(String[] args) {
-        int maxCost = Integer.MAX_VALUE;
-        double minRel = 0.8;
-        double totalRel = 1.0;
+        int maxCost = 130;
+     
         String[] inputLines = new String[0];
         int nodes;
         double[] rMatrix;
@@ -46,31 +45,14 @@ public class Main {
         Arrays.stream(costMatrix).forEach(item->System.out.print(item+ " "));
         ArrayList<Edge> edges = createEdges(nodes,rMatrix,costMatrix);
         Collections.sort(edges);
+        edges = CycleBundle.greedCycleFind(edges, nodes);
+        double rel = CycleBundle.cycleReliability(edges);
+        System.out.println("\nCycle Rel is: "+rel);
+        edges = CycleBundle.maximizeRel(edges,maxCost,rel);
+        rel= CycleBundle.cycleReliability(edges);
+        System.out.println("Max Cycle Rel with cost of " +maxCost+" is: "+rel);
 
-        System.out.println("The MaxST reliability is: ");
 
-    }
-
-    private static ArrayList<Edge> kruskal(ArrayList<Edge> inputEdges, int nodes) {
-        ArrayList<Edge> span = new ArrayList<Edge>();
-        TreeTraversal traversal = new TreeTraversal(nodes);
-
-        for(Edge edge : inputEdges) {
-            int v1 = edge.getV1();
-            int v2 = edge.getV2();
-           if (traversal.connected(v1, v2)){
-                continue;
-            }
-
-            traversal.union(v1,v2);
-            span.add(edge);
-
-            if (traversal.size(0) == nodes) break;
-        }
-
-        if (traversal.size(0) != nodes) return null;
-
-        return span;
     }
 
     private static ArrayList<Edge> createEdges(int nodes, double[] rMatrix, int[] costMatrix){
