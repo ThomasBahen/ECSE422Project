@@ -1,6 +1,8 @@
 package ca.mcgill;
 
 import java.util.ArrayList;
+import ca.mcgill.Edge;
+
 
 public class CycleBundle {
 
@@ -59,11 +61,14 @@ public class CycleBundle {
         }
         i=0;
         while(totalCost<maxCost){
-           Edge currEdge = edges.get(i%connections);
+           Edge currEdge = edges.get(i);
            finalRel=finalRel/currEdge.getRel();
-           parallelize(currEdge, baseEdgeRel[i%connections]);
+           parallelize(currEdge, baseEdgeRel[i]);
            totalCost+=currEdge.getCost();
            i++;
+           if(i>=connections){
+               i=0;
+           }
         }
         return edges;
     }
